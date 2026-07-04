@@ -315,22 +315,37 @@ export default function SystemView() {
               <h2 className="text-xs font-bold uppercase tracking-wider text-text-secondary flex items-center gap-1.5">
                 <span>📈</span> Light Curve & Attention Map
               </h2>
-              <div className="flex bg-surface/50 rounded-lg p-0.5 border border-border">
+              <div className="flex items-center gap-2">
+                <div className="flex bg-surface/50 rounded-lg p-0.5 border border-border">
+                  <button
+                    onClick={() => setActiveChartTab('global')}
+                    className={`px-2 py-1 rounded text-[10px] font-semibold transition-colors cursor-pointer ${
+                      activeChartTab === 'global' ? 'bg-aurora text-white' : 'text-text-secondary hover:text-text-primary'
+                    }`}
+                  >
+                    Global View
+                  </button>
+                  <button
+                    onClick={() => setActiveChartTab('local')}
+                    className={`px-2 py-1 rounded text-[10px] font-semibold transition-colors cursor-pointer ${
+                      activeChartTab === 'local' ? 'bg-aurora text-white' : 'text-text-secondary hover:text-text-primary'
+                    }`}
+                  >
+                    Local Transit
+                  </button>
+                </div>
                 <button
-                  onClick={() => setActiveChartTab('global')}
-                  className={`px-2 py-1 rounded text-[10px] font-semibold transition-colors cursor-pointer ${
-                    activeChartTab === 'global' ? 'bg-aurora text-white' : 'text-text-secondary hover:text-text-primary'
-                  }`}
+                  onClick={() => setChartExpanded(true)}
+                  className="px-2.5 py-1 rounded border border-border bg-surface/30 text-[10px] text-text-secondary hover:text-text-primary hover:bg-surface transition-colors cursor-pointer flex items-center gap-1"
+                  title="Expand Chart"
                 >
-                  Global View
-                </button>
-                <button
-                  onClick={() => setActiveChartTab('local')}
-                  className={`px-2 py-1 rounded text-[10px] font-semibold transition-colors cursor-pointer ${
-                    activeChartTab === 'local' ? 'bg-aurora text-white' : 'text-text-secondary hover:text-text-primary'
-                  }`}
-                >
-                  Local Transit
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="15 3 21 3 21 9" />
+                    <polyline points="9 21 3 21 3 15" />
+                    <line x1="21" y1="3" x2="14" y2="10" />
+                    <line x1="3" y1="21" x2="10" y2="14" />
+                  </svg>
+                  Expand
                 </button>
               </div>
             </div>
