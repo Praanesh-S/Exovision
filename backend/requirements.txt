@@ -11,9 +11,9 @@ python-multipart>=0.0.9          # For file upload support in /classify
 pydantic-settings>=2.0.0         # For Pydantic BaseSettings config loading
 
 # ---- Deep Learning ----
+--extra-index-url https://download.pytorch.org/whl/cpu
 torch>=2.3.0                     # 1D-CNN classifier (CPU build fine for inference)
 scikit-learn>=1.5.0              # Train/test split, metrics, preprocessing utilities
-shap>=0.45.0                     # Model explainability — which transit features drive predictions
 
 # ---- Astronomy ----
 lightkurve>=2.4.0                # Download & manipulate Kepler/TESS light curves from MAST
@@ -23,8 +23,6 @@ astropy>=5.0.0                   # Units, constants, FITS I/O, coordinate transf
 numpy>=1.26.0
 pandas>=2.2.0
 
-# ---- Visualization (preprocessing sanity checks, not served to frontend) ----
-matplotlib>=3.9.0
 
 # ---- Utilities ----
 python-dotenv>=1.0.0             # Load .env for local dev config
