@@ -42,7 +42,7 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
-        env_prefix = "EXOVISION_"  # e.g. EXOVISION_DEBUG=false
+        case_sensitive = False
 
 
 # Singleton instance — import this everywhere
