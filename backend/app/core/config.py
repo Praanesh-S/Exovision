@@ -8,6 +8,8 @@ In production, these are set via Cloud Run environment variables or a .env file.
 """
 
 from pathlib import Path
+from typing import Union
+from pydantic import field_validator
 from pydantic_settings import BaseSettings
 
 
@@ -27,11 +29,26 @@ class Settings(BaseSettings):
 
     # ---- API ----
     # Origins allowed to make cross-origin requests (comma-separated in env)
-    cors_origins: list[str] = [
+    cors_origins: Union[list[str], str] = [
         "http://localhost:5173",   # Vite dev server
         "http://localhost:3000",   # Alternate dev port
         "http://127.0.0.1:5173",
     ]
+
+    @field_validator("cors_origins", mode="before")
+    @classmethod
+    def parse_cors_origins(cls, v):
+        if isinstance(v, str):
+            # Try parsing as JSON list first
+            if v.strip().startswith("[") and v.strip().endswith("]"):
+                import json
+                try:
+                    return json.loads(v)
+                except Exception:
+                    pass
+            # Fallback to comma-separated values
+            return [x.strip() for x in v.split(",") if x.strip()]
+        return v
 
     # ---- Model ----
     # Name of the saved model file to load for inference
