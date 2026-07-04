@@ -128,7 +128,9 @@ async def get_system(koi_name: str):
         # Get ML classification for this specific KOI (if processed)
         classification = "UNKNOWN"
         confidence = 0.0
-        result = inference_service.classify(this_koi, download_if_missing=False)
+        # Download if this is the primary KOI being viewed, otherwise check cache
+        should_download = (this_koi == koi_name)
+        result = inference_service.classify(this_koi, download_if_missing=should_download)
         if result:
             classification = result["classification"]
             confidence = result["confidence"]
@@ -162,8 +164,8 @@ async def get_system(koi_name: str):
     planets.sort(key=lambda p: p.orbital_distance_au)
     
     # ─── Light Curve Data ──────────────────────────────────────────
-    # Use the primary (requested) KOI for the light curve
-    primary_result = inference_service.classify(koi_name, download_if_missing=False)
+    # Use the primary (requested) KOI for the light curve (download if missing from cache)
+    primary_result = inference_service.classify(koi_name, download_if_missing=True)
     if primary_result:
         light_curve = LightCurveData(
             global_view=primary_result["global_view"],
