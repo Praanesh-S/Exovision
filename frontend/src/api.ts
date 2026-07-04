@@ -3,7 +3,11 @@
    Typed fetch wrappers for the FastAPI backend
    ============================================================ */
 
-const API_BASE = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
+const API_BASE =
+  typeof window !== 'undefined' &&
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? '/api'
+    : 'https://exovision-api.onrender.com';
 
 // ---- Types matching backend Pydantic schemas ----
 
