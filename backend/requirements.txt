@@ -1,0 +1,32 @@
+# ==============================================================
+# Exovision Backend Dependencies
+# ==============================================================
+# Pin minimum versions for reproducibility. Use pip install -r requirements.txt
+# in a virtual environment (python -m venv .venv && source .venv/bin/activate).
+
+# ---- Web Framework ----
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9          # For file upload support in /classify
+pydantic-settings>=2.0.0         # For Pydantic BaseSettings config loading
+
+# ---- Deep Learning ----
+torch>=2.3.0                     # 1D-CNN classifier (CPU build fine for inference)
+scikit-learn>=1.5.0              # Train/test split, metrics, preprocessing utilities
+shap>=0.45.0                     # Model explainability — which transit features drive predictions
+
+# ---- Astronomy ----
+lightkurve>=2.4.0                # Download & manipulate Kepler/TESS light curves from MAST
+astropy>=5.0.0                   # Units, constants, FITS I/O, coordinate transforms
+
+# ---- Data ----
+numpy>=1.26.0
+pandas>=2.2.0
+
+# ---- Visualization (preprocessing sanity checks, not served to frontend) ----
+matplotlib>=3.9.0
+
+# ---- Utilities ----
+python-dotenv>=1.0.0             # Load .env for local dev config
+tqdm>=4.66.0                     # Progress bars for batch downloads and training
+tenacity>=8.3.0                  # Retry logic for MAST API calls
