@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
-import { fetchSystem, type SystemResponse } from '../api'
+import { fetchSystem, type SystemResponse, type LightCurveData } from '../api'
 import OrbitalScene from '../components/OrbitalScene'
 import TransitChart from '../components/TransitChart'
 import SystemInfo from '../components/SystemInfo'
@@ -430,7 +430,7 @@ export default function SystemView() {
 
             {/* Expanded Chart Area */}
             <div className="flex-1 min-h-0 p-6" style={{ height: '60vh' }}>
-              <TransitChart lightCurve={system.light_curve} activeView={activeChartTab} />
+              <ExpandedChartWrapper lightCurve={system.light_curve} activeView={activeChartTab} />
             </div>
 
             {/* Modal Footer */}
@@ -450,4 +450,22 @@ export default function SystemView() {
       )}
     </div>
   )
+}
+
+// Helper component to delay chart rendering until modal animation finishes (fixes Recharts size caching bug)
+function ExpandedChartWrapper({ lightCurve, activeView }: { lightCurve: LightCurveData; activeView: 'global' | 'local' }) {
+  const [render, setRender] = useState(false)
+  useEffect(() => {
+    const t = setTimeout(() => setRender(true), 180)
+    return () => clearTimeout(t)
+  }, [])
+
+  if (!render) {
+    return (
+      <div className="w-full h-full flex items-center justify-center text-xs text-text-muted font-mono">
+        Generating transit map...
+      </div>
+    )
+  }
+  return <TransitChart lightCurve={lightCurve} activeView={activeView} />
 }
