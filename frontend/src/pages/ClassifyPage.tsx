@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import TransitChart from '../components/TransitChart'
+import { API_BASE } from '../api'
 
 interface ClassificationResult {
   koi_name: string
@@ -42,7 +43,7 @@ export default function ClassifyPage() {
     setResult(null)
 
     try {
-      const res = await fetch(`/api/classify/?koi_name=${encodeURIComponent(koiName.trim().toUpperCase())}`, {
+      const res = await fetch(`${API_BASE}/classify/?koi_name=${encodeURIComponent(koiName.trim().toUpperCase())}`, {
         method: 'POST',
       })
 
