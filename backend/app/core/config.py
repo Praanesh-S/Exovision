@@ -13,8 +13,8 @@ from pydantic import field_validator
 from pydantic_settings import BaseSettings
 
 
-# Project root is two levels up from this file: backend/app/core/config.py → backend/ → exovision/
-_PROJECT_ROOT = Path(__file__).resolve().parents[3]
+# Project root is one level up from app/core/config.py -> backend/
+_PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
 class Settings(BaseSettings):

@@ -18,9 +18,9 @@ frontend/dist/
 .tsbuildinfo
 
 # Data / Datasets (Ignore raw/processed light curves to keep repo lightweight)
-data/*
-!data/catalog/
-backend/data/
+data/
+backend/data/*
+!backend/data/catalog/
 
 # OS/IDE
 .DS_Store
